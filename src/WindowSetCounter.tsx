@@ -23,7 +23,7 @@ export function WindowSetCounter(props: PropsType) {
         setLocalMax(+e.currentTarget.value)
         setDisableSetBtn(false)
     }
-    const setStartValue = (e:MouseEvent<HTMLButtonElement, MouseEvent> |ChangeEvent<HTMLInputElement>)=>{
+    const setStartValue = (e:ChangeEvent<HTMLInputElement>)=>{
         setLocalStart(+e.currentTarget.value)
         setDisableSetBtn(false)
         props.setError('')
@@ -49,12 +49,12 @@ export function WindowSetCounter(props: PropsType) {
     return <div className={c.window}>
         <div className={c.setValue}>
             <div>max value:</div>
-            <div><input onChange={setMaxValue} type='number' value={localMax}></input></div>
+            <div><input onChange={setMaxValue} type='number' value={localMax}/></div>
         </div>
 
         <div className={c.setValue}>
             <div>start value:</div>
-            <div><input onChange={setStartValue} type='number' value={localStart} ></input></div>
+            <div><input onChange={setStartValue} type='number' value={localStart} /></div>
         </div>
 
         <div className={c.button__wrapper + ' ' + c.button__set}>

@@ -8,7 +8,7 @@ function AppInc(){
 
     let [value, setValue] = useState<number|null>(null)
     let [disableInc, setDisableInc] = useState(true)
-    let [disableRes, setDisableRes] = useState(true)
+
 
     let [maxValue, setMaxValue]  = useState(0)
     let [startValue, setStartValue] = useState(0)
@@ -23,14 +23,17 @@ function AppInc(){
             let newValue = JSON.parse(valueAsString)
             setStartValue(newValue)
         }
-    },[])
-    useEffect(()=>{
-        let valueAsString = localStorage.getItem('maxValue')
-        if (valueAsString){
-            let newValue = JSON.parse(valueAsString)
+        let valueAsStringMax = localStorage.getItem('maxValue')
+        if (valueAsStringMax){
+            let newValue = JSON.parse(valueAsStringMax)
             setMaxValue(newValue)
         }
+        if (valueAsString && valueAsStringMax){
+            setStartText(null)
+            setValue(+valueAsString)
+        }
     },[])
+
 
 
     useEffect(()=>{
@@ -43,25 +46,13 @@ function AppInc(){
 
     const onChangeInc = () => {
         if(value){
-            value++
-            if (value < maxValue) {
-                setValue(value)
-                setDisableRes(false)
-            } else if(value = maxValue){
-                setValue(value)
-                setDisableInc(true)
-                setDisableRes(false)
-            }else {
-                setDisableInc(true)
+            if (value <= maxValue) {
+                setValue(value+1)
             }
         }
-
-
     }
     const onReset = () => {
         setValue(startValue)
-        setDisableInc(false)
-        setDisableRes(true)
     }
 
 
@@ -82,8 +73,8 @@ function AppInc(){
             value = {value}
             error = {error}
             startText = {startText}
-            disableInc = {disableInc}
-            disableRes = {disableRes}
+            disableInc = {value===maxValue}
+            disableRes = {value === startValue}
             onChangeInc = {onChangeInc}
             onReset = {onReset}
             maxValue = {maxValue}

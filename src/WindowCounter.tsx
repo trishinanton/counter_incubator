@@ -16,9 +16,10 @@ type PropsType = {
 }
 
 export function WindowCounter(props: PropsType) {
+    const classNameCounter = (props.error? c.error : c.values) + ' ' + (props.value === props.maxValue ? c.error__value:'');
 
     return <div className={c.window}>
-        <div className={(props.error? c.error : c.values) + ' ' + (props.value === props.maxValue ? c.error__value:'')}>{props.error ? props.error : (props.startText ? props.startText : props.value)}</div>
+        <div className={classNameCounter}>{props.error || props.startText || props.value}</div>
         <div className={c.button__wrapper}>
             <Button disable={props.disableInc} onChange={props.onChangeInc}>inc</Button>
             <Button disable={props.disableRes} onChange={props.onReset}>reset</Button>
